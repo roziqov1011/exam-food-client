@@ -38,32 +38,10 @@ const MENUS = gql`
   }
 `
 
-const NEW_REGION = gql`
-  mutation newRestaran($name: String! $categoryID: ID! ) {
-    newRestaran(name: $name categoryID: $categoryID ) {
-      id
-      name
-    }
-  }
-`
 
-const NEW_BRANCH = gql`
-  mutation newBranche($name: String! $restaranID: ID! ) {
-    newBranche(name: $name restaranID: $restaranID ) {
-      id
-      name
-    }
-  }
-`
-const NEW_MENU = gql`
-mutation newMenu($name: String! $price: Int! $branchID: ID! ) {
-  newMenu(name: $name price: $price branchID: $branchID ) {
-    id
-    name
-    price
-  }
-}
-`
+
+
+
 
 const ALL_MENU = gql`
 query {
@@ -88,10 +66,7 @@ export  {
     COUNTRIES,
     RESTARANS,
     BRANCHES,
-    NEW_REGION,
-    NEW_BRANCH,
     MENUS,
-    NEW_MENU,
     ALL_MENU,
     NEW_ORDER
 }

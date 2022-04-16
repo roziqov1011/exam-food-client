@@ -1,10 +1,8 @@
 import './App.css'
-import { useQuery, gql, useMutation } from '@apollo/client'
-import { useContext, useEffect, useState } from 'react'
-import { Context } from './context/contex'
-import { ALL_MENU, BRANCHES, COUNTRIES, MENUS, NEW_BRANCH, NEW_MENU, NEW_ORDER, NEW_REGION, RESTARANS } from './Query'
+import { useQuery,  useMutation } from '@apollo/client'
+import {  useState } from 'react'
+import { ALL_MENU, BRANCHES, COUNTRIES, MENUS, NEW_ORDER, RESTARANS } from './Query'
 import milliy from './img/milliy.jpg'
-import milliyres from './img/milliyres.jpg'
 import food from './img/food.jpg'
 import branch from './img/branch.jpg'
 import resres from './img/resres.jpg'
@@ -37,80 +35,17 @@ const { data: menuData } = useQuery(MENUS, {
 variables: { branchID }
 })
 
-const [ newRegion ] = useMutation(NEW_REGION, {
-update: (cache, data) => {
-console.log(data)
-}
-})
-const [ newBranch ] = useMutation(NEW_BRANCH, {
-update: (cache, data) => {
-console.log(data)
-}
-})
 
-const [ newMenu ] = useMutation(NEW_MENU, {
-update: (cache, data) => {
-console.log(data)
-}
-})
 const [ newOrder ] = useMutation(NEW_ORDER, {
   update: (cache, data) => {
-  console.log(data)
+    console.log(data,cache)
   }
   })
 
-const handleSubmit = e => {
-e.preventDefault()
-
-const { select, name } = e.target.elements
-
-newRegion({
-variables: {
-name: name.value,
-categoryID: select.value
-}
-})
-}
-
-const handleSubmitBranch = e => {
-e.preventDefault()
-
-const { select, name } = e.target.elements
-
-newBranch({
-variables: {
-name: name.value,
-restaranID: select.value
-}
-})
-}
-
-const handleSubmitMenu = e => {
-e.preventDefault()
-
-const { select, name, price } = e.target.elements
-
-newMenu({
-variables: {
-name: name.value,
-price: price.value-0,
-branchID: select.value
-}
-})
-
-console.log({name: name.value,
-price: price.value,
-branchID: select.value});
-
-
-}
 
 
 
-const hendleCount =()=>{
-  setCount(count+1)
-  console.log(count);
-}
+
 
 
 const HandleoOrderFoods = (e)=>{
@@ -142,7 +77,7 @@ const HandleoOrderFoods = (e)=>{
   const submitFood =(e)=>{
     let cilckId = e.target.id
     let foundFood = allMenu.allMenu.find((e)=> e.id == cilckId)
-    
+
     newOrder({
       variables: {
       order_id: foundFood.id,
