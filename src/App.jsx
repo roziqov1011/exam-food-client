@@ -51,7 +51,7 @@ const [ newOrder ] = useMutation(NEW_ORDER, {
 const HandleoOrderFoods = (e)=>{
    const foodsArr = []
  let cilckId = e.target.id
-  let foundFood = allMenu.allMenu.find((e)=> e.id == cilckId)
+  let foundFood = allMenu.allMenu.find((e)=> e.id === cilckId)
   let getFood = JSON.parse(window.localStorage.getItem('foodData'))
   
   if(!window.localStorage.getItem('foodData')){
@@ -64,7 +64,7 @@ const HandleoOrderFoods = (e)=>{
   }
 
   if(getFood){
-    let foundlocal = getFood.find((e)=> e.id == foundFood.id)
+    let foundlocal = getFood.find((e)=> e.id === foundFood.id)
     if(!foundlocal){
       foodsArr.push(foundFood)
     }else{
@@ -76,7 +76,7 @@ const HandleoOrderFoods = (e)=>{
 }
   const submitFood =(e)=>{
     let cilckId = e.target.id
-    let foundFood = allMenu.allMenu.find((e)=> e.id == cilckId)
+    let foundFood = allMenu.allMenu.find((e)=> e.id === cilckId)
 
     newOrder({
       variables: {
@@ -180,9 +180,7 @@ return (<>
           <button href="#" className="btn btn-success mb-3">{e.price * count} so'm</button>
           <div className='count-wrap'>
             <button onClick={HandleoOrderFoods} id={e.id} className='btn btn-primary'>save</button>
-            {/* <button className='btn btn-primary' onClick={()=>count > 1? setCount(count-1):null}>-</button>
-            <span className='p-3'>{count}</span>
-            <button className='btn btn-primary' onClick={()=>setCount(count+1)}>+</button> */}
+
           </div>
         </div>
     </div>
