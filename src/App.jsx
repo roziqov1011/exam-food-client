@@ -80,7 +80,16 @@ let status = true
   const submitFood =(e)=>{
     let cilckId = e.target.id
     let foundFood = allMenu.allMenu.find((e)=> e.id === cilckId)
-
+    
+    if(status){
+      newOrder({
+        variables: {
+        order_id: foundFood.id,
+        name: foundFood.name,
+        price: foundFood.price-0
+        }
+        })
+    }
     if(status){
       e.target.textContent = 'bekor qilish'
       e.target.classList='btn btn-danger'
@@ -91,15 +100,7 @@ let status = true
       e.target.classList='btn btn-success'
       status = true
     }
-    if(status){
-      newOrder({
-        variables: {
-        order_id: foundFood.id,
-        name: foundFood.name,
-        price: foundFood.price-0
-        }
-        })
-    }
+    
   }
 return (<>
 
