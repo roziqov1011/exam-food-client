@@ -72,26 +72,41 @@ const HandleoOrderFoods = (e)=>{
     }
   }
   window.localStorage.setItem('foodData', JSON.stringify(foodsArr))
-  setLocalData(JSON.parse(window.localStorage.getItem('foodData')))
+ setLocalData(JSON.parse(window.localStorage.getItem('foodData')))
 }
+
+
+let status = true
   const submitFood =(e)=>{
     let cilckId = e.target.id
     let foundFood = allMenu.allMenu.find((e)=> e.id === cilckId)
 
-    newOrder({
-      variables: {
-      order_id: foundFood.id,
-      name: foundFood.name,
-      price: foundFood.price-0
-      }
-      })
+    if(status){
+      e.target.textContent = 'bekor qilish'
+      e.target.classList='btn btn-danger'
+      status = false
+    } else
+    if(!status){
+      e.target.textContent = 'sotib olish'
+      e.target.classList='btn btn-success'
+      status = true
+    }
+    if(status){
+      newOrder({
+        variables: {
+        order_id: foundFood.id,
+        name: foundFood.name,
+        price: foundFood.price-0
+        }
+        })
+    }
   }
 return (<>
 
 <div className="collapse" id="navbarToggleExternalContent">
   
   </div>
-  <nav className="navbar navbar-dark bg-primary">
+  <nav className="navbar navbar-dark bg-primary ">
     <div className="container-fluid">
       
       <button className="navbar-toggler border-3 border-light text-white" type="button"data-bs-toggle="offcanvas" data-bs-target="#offcanvasRight" aria-controls="offcanvasRight">
@@ -105,10 +120,15 @@ return (<>
   <div className="offcanvas-body">
    {localData && localData.map((e,i)=>(
      <div key={i} className="card card-body">
+       
        <img src={food} alt="" className='card-img' />
        <h4>{e.name}</h4>
        <h4>{e.price} so'm</h4>
-       <button onClick={submitFood} className='btn btn-success' id={e.id}>sotib olish</button>
+       {/* <div class="form-check form-switch" onClick={submitFood} id={e.id}>
+        <input className="form-check-input" type="checkbox" role="switch" id="flexSwitchCheckDefault"/>
+        <label className="form-check-label" for="flexSwitchCheckDefault">sotib olish</label>
+      </div> */}
+       <button onClick={submitFood} className='btn btn-success sotib-olish' id={e.id}>sotib olish</button>
      </div>
    ))}
   </div>
